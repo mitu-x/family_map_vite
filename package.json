@@ -9,11 +9,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "vue": "^3.3.11"
+    "vue": "^3.3.11",
+    "vue-router": "^4.3.0"
   },
   "devDependencies": {
     "@types/node": "^20.11.29",
     "@vitejs/plugin-vue": "^4.5.2",
+    "axios": "^1.6.8",
     "less": "^4.2.0",
     "typescript": "^5.2.2",
     "vite": "^5.0.8",

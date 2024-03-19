@@ -1,9 +1,12 @@
 <script lang="ts" setup>
-
+import Footer from './Footer.vue'
 </script>
 
 <template>
-  <router-view></router-view>
+  <div>
+    <div></div>
+    <Footer></Footer>
+  </div>
 </template>
 
 <style lang="less" scoped>
