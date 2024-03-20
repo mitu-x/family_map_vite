@@ -11,8 +11,9 @@
 <style lang="less" scoped>
 .footer {
   width: 100vw;
-  height: 10rem;
+  height: 4rem;
   background: url("@/assets/images/底部logo.png") center center no-repeat;
+  background-size: contain;
 }
 
 </style>

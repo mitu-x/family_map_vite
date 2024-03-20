@@ -1,11 +1,15 @@
 <script lang="ts" setup>
-
-</script>
+import Footer from './components/Footer.vue'</script>
 
 <template>
-  <router-view></router-view>
+  <div class="container">
+    <router-view></router-view>
+  </div>
+  <Footer></Footer>
 </template>
 
 <style lang="less" scoped>
-
+.container {
+  min-height: 10rem;
+}
 </style>

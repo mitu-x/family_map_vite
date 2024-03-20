@@ -1,5 +1,4 @@
-<script lang="ts" setup>
-import Footer from './Footer.vue'</script>
+<script lang="ts" setup></script>
 
 <template>
   <div class="container">
@@ -17,7 +16,7 @@ import Footer from './Footer.vue'</script>
       </div>
     </router-link>
 
-    <router-link to="">
+    <router-link to="login">
       <div class="box unknown">
         <img alt="" src="@/assets/images/疑问图.png" srcset="">
         <div>不知道</div>
@@ -33,7 +32,7 @@ import Footer from './Footer.vue'</script>
 
   </div>
 
-  <Footer></Footer>
+
 </template>
 
 <style lang="less" scoped>

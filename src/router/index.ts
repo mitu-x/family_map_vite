@@ -7,6 +7,10 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import("../components/Home.vue")
     },
     {
+        path: '/login',
+        component: () => import("../components/Login.vue")
+    },
+    {
         path: '/emotion',
         component: () => import("../components/Emotion.vue")
     },

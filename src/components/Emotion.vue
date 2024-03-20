@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import Footer from './Footer.vue'
 import {ref} from "vue";
 import {getListByName} from '../api/emotion.ts'
 import {message} from 'ant-design-vue';
@@ -71,7 +70,7 @@ const search = () => {
 
   </div>
 
-  <Footer></Footer>
+
 </template>
 
 <style lang="less" scoped>
