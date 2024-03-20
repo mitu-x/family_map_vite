@@ -8,6 +8,7 @@ import * as path from 'path'
 // https://vitejs.dev/config/
 
 export default defineConfig({
+    base: "./",
     plugins: [vue()],
     resolve: {
         //别名配置
@@ -28,17 +29,17 @@ export default defineConfig({
         }
     },
     server: {
-        proxy: {
-            host: '0.0.0.0',
-            '/api': {
-                target: 'http://8.137.36.141:18888',
-                changeOrigin: true,
-                rewrite: (path) => {
-                    console.log(path)
-                    return path.replace(/^\/api/, '')
-                }
-            }
-        }
+        host: '0.0.0.0',
+        port: 8088,
+        open: true,
+        // proxy: {
+        //     '/api': {
+        //         target: 'http://8.137.36.141:18888',
+        //         changeOrigin: true,
+        //         rewrite: (path) => path.replace(/^\/api/, '')
+        //     }
+        // },
+
     }
 
 

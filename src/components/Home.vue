@@ -1,9 +1,5 @@
 <script lang="ts" setup>
-import {ref} from 'vue'
-import Footer from './Footer.vue'
-
-const count = ref(0)
-</script>
+import Footer from './Footer.vue'</script>
 
 <template>
   <div class="container">
