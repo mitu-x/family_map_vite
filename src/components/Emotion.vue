@@ -115,7 +115,7 @@ const search = () => {
       border: 1px solid #ccc;
       border-top-left-radius: 1rem;
       border-bottom-left-radius: 1rem;
-      background-color: #D96666;
+      background-color: @emotion-color;
       color: #fff;
       font-size: 1rem;
       text-align: center;
@@ -171,7 +171,7 @@ const search = () => {
     min-height: 10rem;
     //border: 1px solid #213547;
     background-color: #fff;
-    box-shadow: 0px 0px 8px 0 #666;
+    box-shadow: 0 0 8px 0 #666;
     margin-top: 5rem;
     border-radius: 0.5rem;
     padding: 1.5rem;
@@ -182,7 +182,7 @@ const search = () => {
     min-height: 20rem;
     //border: 1px solid #213547;
     background-color: #fff;
-    box-shadow: 0px 0px 8px 0 #666;
+    box-shadow: 0 0 8px 0 #666;
     margin-top: 5rem;
     border-radius: 0.5rem;
   }

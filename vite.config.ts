@@ -24,7 +24,10 @@ export default defineConfig({
         preprocessorOptions: {
             less: {
                 //支持直接使用表达式 width: 100px - 20px;得到值为width:80px;
-                math: "always"
+                math: "always",
+                //支持引入全局变量
+                charset: false,
+                additionalData: '@import "@/root.less";',
             }
         }
     },

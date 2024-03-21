@@ -1,32 +1,41 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+
+const authority = localStorage.getItem('authority')
+
+const emotionAuth = (authority & '0b1000') === 8
+const familyAuth = (authority & '0b0100') === 4
+const unknownAuth = (authority & '0b0010') === 2
+const undefinedAuth = (authority & '0b0001') === 1
+const noAuthString = '无权限'
+</script>
 
 <template>
   <div class="container">
-    <router-link to="/emotion">
+    <router-link :to="emotionAuth ? '/emotion' : '/'">
       <div class="box emotion">
         <img alt="" src="@/assets/images/本子图.png" srcset="">
-        <div>人情簿</div>
+        <div>{{ emotionAuth ? '人情簿' : noAuthString }}</div>
       </div>
     </router-link>
 
-    <router-link to="/family">
+    <router-link :to="familyAuth ? '/family' : '/'">
       <div class="box family">
         <img alt="" src="@/assets/images/关系图.png" srcset="">
-        <div>族家系</div>
+        <div>{{ familyAuth ? '族家系' : noAuthString }}</div>
       </div>
     </router-link>
 
-    <router-link to="login">
+    <router-link :to="unknownAuth ? '/' : '/'">
       <div class="box unknown">
         <img alt="" src="@/assets/images/疑问图.png" srcset="">
-        <div>不知道</div>
+        <div>{{ unknownAuth ? '不知道' : noAuthString }}</div>
       </div>
     </router-link>
 
-    <router-link to="">
+    <router-link :to="undefinedAuth ? '/' : '/'">
       <div class="box undefined">
         <img alt="" src="@/assets/images/敬请期待.png" srcset="">
-        <div>...</div>
+        <div>{{ undefinedAuth ? '...' : noAuthString }}</div>
       </div>
     </router-link>
 
@@ -65,16 +74,15 @@
       height: 3rem;
     }
   }
-
 }
 
 
 .emotion {
-  background-color: #D96666;
+  background-color: @emotion-color;
 }
 
 .family {
-  background-color: #66BDD9;
+  background-color: @family-color;
 }
 
 .unknown {

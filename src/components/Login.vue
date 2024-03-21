@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import {ref} from 'vue'
 import {useRouter} from 'vue-router'
+import {message} from "ant-design-vue";
 
 let passwd = ref("")
 
@@ -9,8 +10,11 @@ const router = useRouter()
 
 const loginTo = () => {
   if (passwd.value === '1234') {
-
+    localStorage.setItem('token', '1234')
+    localStorage.setItem('authority', '0b1111')
     router.push('/')
+  } else {
+    message.error('密码错误')
   }
 }
 </script>
