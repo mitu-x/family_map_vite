@@ -35,13 +35,13 @@ export default defineConfig({
         host: '0.0.0.0',
         port: 8088,
         open: true,
-        // proxy: {
-        //     '/api': {
-        //         target: 'http://8.137.36.141:18888',
-        //         changeOrigin: true,
-        //         rewrite: (path) => path.replace(/^\/api/, '')
-        //     }
-        // },
+        proxy: {
+            '/api': {
+                target: 'http://localhost:18888',
+                changeOrigin: true,
+                rewrite: (path) => path.replace(/^\/api/, '')
+            }
+        },
 
     }
 

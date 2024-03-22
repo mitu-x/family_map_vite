@@ -3,33 +3,61 @@ import {ref} from "vue";
 import {getListByName} from '../api/emotion.ts'
 import {message} from 'ant-design-vue';
 
-type Res = {
+type Res = [{
   name: string,
   cash: string,
   bookName: string
-}
+}]
 let inputString = ref("")
 let hasResult = ref(0)
-let resMap = ref<null | Res>(null)
+let total = ref(0)
+let resList = ref<null | Res>(null)
+let columns = [
+  {
+    title: '名字',
+    align: 'center',
+    dataIndex: 'name',
+    key: 'name',
+  },
+  {
+    align: 'center',
+    title: '金额',
+    dataIndex: 'cash',
+    key: 'cash',
+  },
+  {
+    align: 'center',
+    title: '表名',
+    dataIndex: 'bookName',
+    key: 'bookName',
+  }
+]
 // 搜索按钮
 const search = () => {
 
   // 向后端发送请求
-  // ...
-  if (inputString.value === "") {
-    message.error("请输入姓名")
-    return
-  }
   getListByName(inputString.value).then((res: any) => {
-    if (res.errorCode !== '200') {
-      message.error("未查询到数据");
+    if (!res.success) {
+      message.error("查询失败");
+      return
+    }
+    if (res.result.total === 0) {
+      message.info("没有查询到结果");
       return
     }
     message.info("查询成功");
-    resMap.value = res.result as Res
-    hasResult.value = 1
+    total.value = res.result.total as number
+    resList.value = res.result.data as Res
+    // 判断是否超过10条
+    if (total.value < 10) {
+      hasResult.value = 1
+    } else {
+      hasResult.value = 2
+    }
+
+
   }).catch(() => {
-    message.error("未查询到数据");
+    message.error("网络连接错误");
   })
 }
 
@@ -37,35 +65,37 @@ const search = () => {
 
 <template>
   <div class="search-container">
-    <transition-group name="list">
-      <div key="sear" class="search-box">
-        <select>
-          <option selected> 人名</option>
-          <!--        <option>表名</option>-->
-        </select>
-        <input v-model="inputString" type="text">
-        <img alt="搜索" src="@/assets/images/search.png" @click="search">
-      </div>
 
+    <div key="sear" class="search-box">
+      <select title="name">
+        <option selected> 人名</option>
+        <!--        <option>表名</option>-->
+      </select>
+      <input v-model="inputString" placeholder="请输入姓名" type="text">
+      <img alt="搜索" src="@/assets/images/search.png" @click="search">
+    </div>
 
-      <div v-show="hasResult===1" key="li" class="list-box">
+    <div v-if="hasResult===1" key="res" class="result-box">
+      <div v-for="(item,index) in resList" :key="index" class="list-box">
         <table class="table">
           <tr>
             <td>姓名：</td>
-            <td>{{ resMap?.name }}</td>
+            <td>{{ item.name }}</td>
           </tr>
           <tr>
             <td>金额：</td>
-            <td>{{ resMap?.cash }}</td>
+            <td>{{ item.cash }}</td>
           </tr>
           <tr>
             <td>表名：</td>
-            <td>{{ resMap?.bookName }}</td>
+            <td>{{ item.bookName }}</td>
           </tr>
         </table>
       </div>
-
-    </transition-group>
+    </div>
+    <div v-if="hasResult===2" key="table-list" class="table-list">
+      <a-table :columns="columns" :dataSource="resList" :pagination="{ pageSize: 7,simple:true }"/>
+    </div>
 
 
   </div>
@@ -74,22 +104,11 @@ const search = () => {
 </template>
 
 <style lang="less" scoped>
-.list-move,
-.list-leave-active,
-.list-enter-active {
-  transition: opacity 0.5s cubic-bezier(.16, .67, .28, 1.46);
-}
-
-.list-enter-from,
-.list-leave-to {
-  opacity: 0;
-  transform: translate(2rem, 0);
-}
 
 
 .search-container {
   @width: 19rem;
-  height: 25rem;
+  height: 45rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -106,7 +125,7 @@ const search = () => {
     align-items: center;
     background-color: #fff;
     padding-right: 0.5rem;
-    box-shadow: 0 0px 8px -1px #666;
+    box-shadow: 0 0 8px -1px #666;
 
     select {
 
@@ -166,27 +185,36 @@ const search = () => {
 
   }
 
-  .list-box {
+  .result-box {
     width: @width;
-    min-height: 10rem;
-    //border: 1px solid #213547;
-    background-color: #fff;
-    box-shadow: 0 0 8px 0 #666;
-    margin-top: 5rem;
-    border-radius: 0.5rem;
-    padding: 1.5rem;
+    margin-top: 2rem;
+    border-radius: 1rem;
+    overflow: scroll;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    max-height: 35rem;
+
+
+    .list-box {
+      width: @width - 2rem;
+      min-height: 8rem;
+      //border: 1px solid #213547;
+      background-color: #fff;
+      //box-shadow: 0 0 8px 0 #666;
+      margin-top: 1rem;
+      border-radius: 0.5rem;
+      padding: 0.5rem 1.5rem;
+    }
+
+
   }
 
-  .list-scroll {
-    width: @width;
-    min-height: 20rem;
-    //border: 1px solid #213547;
-    background-color: #fff;
-    box-shadow: 0 0 8px 0 #666;
-    margin-top: 5rem;
-    border-radius: 0.5rem;
+  .table-list {
+    margin-top: 2rem;
+    max-height: 30rem;
+    width: 20rem;
   }
-
 }
 
 

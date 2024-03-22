@@ -2,7 +2,8 @@ import axios from 'axios';
 
 // 创建axios实例
 const instance = axios.create({
-    baseURL: 'http://8.137.36.141:18888',
+    // baseURL: 'http://8.137.36.141:18888',
+    baseURL: '/api',
     timeout: 5000// 设置API的基础URL
 });
 
