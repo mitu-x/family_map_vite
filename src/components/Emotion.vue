@@ -73,7 +73,7 @@ const search = () => {
         <!--        <option>表名</option>-->
       </select>
       <input v-model="inputString" placeholder="请输入姓名" type="text">
-      <img alt="搜索" src="@/assets/images/search.png" @click="search">
+      <img alt="搜索" src="../assets/images/search-emotion.png" @click="search">
     </div>
 
     <div v-if="hasResult===1" key="res" class="result-box">
