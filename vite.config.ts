@@ -8,6 +8,17 @@ import * as path from 'path'
 // https://vitejs.dev/config/
 
 export default defineConfig({
+    build: {
+        rollupOptions: {
+            output: {
+                chunkFileNames: 'static/js/[name]-chunk-[hash].js',
+                entryFileNames: 'static/js/[name]-entry-[hash].js',
+                assetFileNames: 'static/[ext]/[name]-[hash].[ext]',
+            }
+        },
+        // 控制打包时候输出图片最小大小
+        assetsInlineLimit: 1
+    },
     base: "./",
     plugins: [vue()],
     resolve: {
@@ -35,13 +46,13 @@ export default defineConfig({
         host: '0.0.0.0',
         port: 8088,
         open: true,
-        proxy: {
-            '/api': {
-                target: 'http://localhost:18888',
-                changeOrigin: true,
-                rewrite: (path) => path.replace(/^\/api/, '')
-            }
-        },
+        // proxy: {
+        //     '/api': {
+        //         target: 'http://localhost:18888',
+        //         changeOrigin: true,
+        //         rewrite: (path) => path.replace(/^\/api/, '')
+        //     }
+        // },
 
     }
 

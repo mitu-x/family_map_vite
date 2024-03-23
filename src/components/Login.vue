@@ -9,9 +9,13 @@ const router = useRouter()
 
 
 const loginTo = () => {
-  if (passwd.value === '1234') {
-    localStorage.setItem('token', '1234')
-    localStorage.setItem('authority', '0b1111')
+  if (passwd.value === 'cool') {
+    sessionStorage.setItem('token', 'cool')
+    sessionStorage.setItem('authority', '1111')
+    router.push('/')
+  } else if (passwd.value === '1234') {
+    sessionStorage.setItem('token', '1234')
+    sessionStorage.setItem('authority', '0111')
     router.push('/')
   } else {
     message.error('密码错误')

@@ -25,12 +25,13 @@ let columns = [
     dataIndex: 'cash',
     key: 'cash',
   },
-  {
-    align: 'center',
-    title: '表名',
-    dataIndex: 'bookName',
-    key: 'bookName',
-  }
+  // {
+  //   align: 'center',
+  //   title: '表名',
+  //   dataIndex: 'bookName',
+  //   key: 'bookName',
+  //   ellipsis: true
+  // }
 ]
 // 搜索按钮
 const search = () => {
@@ -88,13 +89,13 @@ const search = () => {
           </tr>
           <tr>
             <td>表名：</td>
-            <td>{{ item.bookName }}</td>
+            <td>{{ item.bookName.replace('.xlsx', '') }}</td>
           </tr>
         </table>
       </div>
     </div>
     <div v-if="hasResult===2" key="table-list" class="table-list">
-      <a-table :columns="columns" :dataSource="resList" :pagination="{ pageSize: 7,simple:true }"/>
+      <a-table :columns="columns" :dataSource="resList" :pagination="{ pageSize: 5,simple:true }"/>
     </div>
 
 
@@ -108,7 +109,7 @@ const search = () => {
 
 .search-container {
   @width: 19rem;
-  height: 45rem;
+  height: 60vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -212,7 +213,7 @@ const search = () => {
 
   .table-list {
     margin-top: 2rem;
-    max-height: 30rem;
+    max-height: 40vh;
     width: 20rem;
   }
 }

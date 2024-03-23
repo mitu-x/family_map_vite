@@ -33,7 +33,7 @@ const router = createRouter({
 //路由拦截
 router.beforeEach((to, from, next) => {
 //    判断token是否存在
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
     if (to.path === '/login' && token) {
         next('/');
     } else if (to.path !== '/login' && !token) {

@@ -1,11 +1,10 @@
 <script lang="ts" setup>
-
-const authority = localStorage.getItem('authority')
-
-const emotionAuth = (authority & '0b1000') === 8
-const familyAuth = (authority & '0b0100') === 4
-const unknownAuth = (authority & '0b0010') === 2
-const undefinedAuth = (authority & '0b0001') === 1
+const tmp = sessionStorage.getItem('authority') || '0'
+const authority = parseInt(tmp, 2)
+const emotionAuth = (authority & 8)
+const familyAuth = (authority & 4)
+const unknownAuth = (authority & 2)
+const undefinedAuth = (authority & 1)
 const noAuthString = '无权限'
 </script>
 
