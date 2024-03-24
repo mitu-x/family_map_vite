@@ -67,7 +67,7 @@ const dataList: Person[][] = [
     name: '陈珍凡'
   }],
 ]
-const searchByUUID = (uuid: string) => {
+const searchByUUID = (uuid: string | undefined) => {
   console.log(uuid)
   selectRes.value = '1'
   selectAll.value = false

@@ -10,7 +10,7 @@ const props = defineProps({
   list: Array<P>,
 })
 const emit = defineEmits(['FatherClick'])
-const handle = (uuid) => {
+const handle = (uuid: string | undefined) => {
   emit('FatherClick', uuid)
 }
 
@@ -18,7 +18,7 @@ const handle = (uuid) => {
 </script>
 
 <template>
-  <div v-if="list.length !== 0" class="box">
+  <div v-if="list?.length !== 0" class="box">
     <div class="title">
       {{ title }}
     </div>
@@ -47,7 +47,7 @@ const handle = (uuid) => {
     line-height: 2rem;
     text-align: center;
     //border-radius: 0.5rem 0 0 0.5rem;
-    
+
 
   }
 

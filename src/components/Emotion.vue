@@ -50,7 +50,7 @@ const search = () => {
     total.value = res.result.total as number
     resList.value = res.result.data as Res
     // 判断是否超过10条
-    if (total.value < 10) {
+    if (total.value < 3) {
       hasResult.value = 1
     } else {
       hasResult.value = 2
