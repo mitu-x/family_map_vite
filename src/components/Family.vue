@@ -1,178 +1,141 @@
 <script lang="ts" setup>
-
+import FamilyPerson from "./FamilyPerson.vue";
 import {ref} from 'vue'
 
-const selectAll = ref(true)
+interface Person {
+  uuid: string,
+  name: string,
+}
+
+interface ResPersonInfo extends Person {
+  gender: '男' | '女' | '未知',
+  dateOfBAD: string,
+  homeTown: string,
+  ethnic: string,
+  profession: string,
+  degree: string,
+  politicsStatus: string,
+  personalProfile: string,
+  parent: Person[],
+  spouse: Person[],
+  siblings: Person[],
+  children: Person[]
+}
+
+const selectAll = ref(false)
 const inputString = ref('')
+const selectRes = ref<'1' | '2'>('1')
+const searchResult = ref<ResPersonInfo | null>(null)
+const titleTo = ['父母', '配偶', '兄弟姐妹', '子女']
+// 测试数据
+const data: ResPersonInfo = {
+  uuid: '1',
+  name: '陈家安',
+  gender: '男',
+  dateOfBAD: '不详',
+  homeTown: '不详',
+  ethnic: '土家族',
+  profession: '不详',
+  degree: '不详',
+  politicsStatus: '不详',
+  personalProfile: '1990年出生于广东省广州市，2010年考入中山大学，2014年本科\n' +
+      '          毕业并获得学士学位。2014年9月考入中山大学软件学院，2017年保研至\n' +
+      '          中山大学软件学院攻读硕士学位。',
+  parent: [],
+  spouse: [{uuid: "uuid", name: '冉氏'}],
+  children: [{uuid: "uuid", name: '陈芝茂'}, {uuid: "uuid", name: '陈芝顺'}],
+  siblings: [{uuid: "uuid", name: '陈芝茂'}, {uuid: "uuid", name: '陈芝顺'}, {
+    uuid: "uuid",
+    name: '陈芝茂'
+  }, {uuid: "uuid", name: '陈芝顺'}, {uuid: "uuid", name: '陈芝茂'}, {uuid: "uuid", name: '陈芝顺'}, {
+    uuid: "uuid",
+    name: '陈芝茂'
+  }, {uuid: "uuid", name: '陈芝顺'}, {uuid: "uuid", name: '陈芝茂'}, {uuid: "uuid", name: '陈芝顺'}, {
+    uuid: "uuid",
+    name: '陈芝茂'
+  }, {uuid: "uuid", name: '陈芝顺'}]
+}
+
+const dataList: Person[][] = [
+  [{uuid: '1', name: '陈家安'}, {uuid: '2', name: '冉氏'}],
+  [{uuid: '3', name: '陈芝茂'}, {uuid: '4', name: '陈芝顺'}],
+  [{uuid: '5', name: '陈珍福'}, {uuid: '6', name: '陈珍凡'}, {uuid: '5', name: '陈珍福'}, {
+    uuid: '6',
+    name: '陈珍凡'
+  }, {uuid: '5', name: '陈珍福'}, {uuid: '6', name: '陈珍凡'}, {uuid: '5', name: '陈珍福'}, {
+    uuid: '6',
+    name: '陈珍凡'
+  }],
+]
+const searchByUUID = (uuid: string) => {
+  console.log(uuid)
+  selectRes.value = '1'
+  selectAll.value = false
+  searchResult.value = data;
+  // searchByUUID()
+}
 const search = () => {
   // 调用搜索方法
-  console.log('搜索', inputString.value)
+  selectRes.value = '1'
+  selectAll.value = false
+  console.log(inputString.value)
+  searchResult.value = data;
 }
-const self = "陈家安"
+const changeHandle = () => {
+  selectAll.value = selectRes.value === '2'
+}
 </script>
 
 <template>
   <div key="sear" class="search-box">
-    <div class="name">
-      <span>姓名</span>
-    </div>
+    <select v-model="selectRes" class="name" title="选择" @change="changeHandle">
+      <option value="1">搜索</option>
+      <option value="2">全部</option>
+    </select>
     <input v-model="inputString" placeholder="请输入姓名" type="text"/>
     <img alt="搜索" src="../assets/images/search-family.png" @click="search"/>
   </div>
-  <div v-if="!selectAll" class="search-result">
+  <div v-if="!selectAll && searchResult " class="search-result">
     <div class="desc">
-      <div class="title">{{ self }}-生平简介</div>
+      <div class="title">{{ searchResult.name }}-生平简介</div>
       <div class="con">
         <p>
+          性别：
+          <span>{{ searchResult.gender }}</span>
+        </p>
+        <p>
           生卒年：
-          <span>1990-2020</span>
+          <span>{{ searchResult.dateOfBAD }}</span>
         </p>
         <p>
           籍贯：
-          <span>广东省广州市</span>
+          <span>{{ searchResult.homeTown }}</span>
         </p>
         <p>
           民族：
-          <span>汉</span>
-        </p>
-        <p>
-          职业：
-          <span>工程师</span>
-        </p>
-        <p>
-          学历：
-          <span>本科</span>
+          <span>{{ searchResult.ethnic }}</span>
         </p>
         <p>
           政治面貌：
-          <span>党员</span>
+          <span>{{ searchResult.politicsStatus }}</span>
         </p>
         <p>
           个人简介：
-          <span>{{ self }}，1990年出生于广东省广州市，2010年考入中山大学，2014年本科
-          毕业并获得学士学位。2014年9月考入中山大学软件学院，2017年保研至
-          中山大学软件学院攻读硕士学位。</span>
+          <span>{{ searchResult.name }}，{{ searchResult.personalProfile }}</span>
         </p>
       </div>
     </div>
     <div class="pic">
-      <div class="box">
-        <div class="title">
-          父母
-        </div>
-        <div class="result">
-          <div class="father person-box">父亲父亲父亲</div>
-          <div class="mother person-box">母亲</div>
-        </div>
-      </div>
-      <div class="box">
-        <div class="title">
-          配偶
-        </div>
-        <div class="result">
-          <div class="wife person-box">
-            妻子
-          </div>
-        </div>
-      </div>
-      <div class="box">
-        <div class="title">
-          兄弟姊妹
-        </div>
-        <div class="result">
-          <div class="brother person-box">
-            兄弟1
-          </div>
-          <div class="brother person-box">
-            兄弟2
-          </div>
-          <div class="brother person-box">
-            兄弟3
-          </div>
-          <div class="brother person-box">
-            兄弟4
-          </div>
-        </div>
-      </div>
-      <div class="box">
-        <div class="title">
-          儿女
-        </div>
-        <div class="result">
-          <div class="son person-box">儿子1</div>
-          <div class="daughter person-box">女儿1</div>
-          <div class="son person-box">儿子2</div>
-          <div class="daughter person-box">女儿2</div>
-          <div class="son person-box">儿子1</div>
-          <div class="daughter person-box">女儿1</div>
-          <div class="son person-box">儿子2</div>
-          <div class="daughter person-box">女儿2</div>
-          <div class="son person-box">儿子1</div>
-          <div class="daughter person-box">女儿1</div>
-          <div class="son person-box">儿子2</div>
-          <div class="daughter person-box">女儿2</div>
-          <div class="son person-box">儿子1</div>
-          <div class="daughter person-box">女儿1</div>
-          <div class="son person-box">儿子2</div>
-          <div class="daughter person-box">女儿2</div>
-        </div>
-      </div>
+      <FamilyPerson :list="searchResult.parent" :title="titleTo[0]" @FatherClick="searchByUUID"></FamilyPerson>
+      <FamilyPerson :list="searchResult.spouse" :title="titleTo[1]" @FatherClick="searchByUUID"></FamilyPerson>
+      <FamilyPerson :list="searchResult.siblings" :title="titleTo[2]" @FatherClick="searchByUUID"></FamilyPerson>
+      <FamilyPerson :list="searchResult.children" :title="titleTo[3]" @FatherClick="searchByUUID"></FamilyPerson>
     </div>
   </div>
   <div v-if="selectAll" class="all-result">
-    <div class="box">
-      <div class="title">
-        1
-      </div>
-      <div class="result">
-        <div class="grandpa person-box">
-          爷爷
-        </div>
-        <div class="grandma person-box">
-          奶奶
-        </div>
-      </div>
-    </div>
-    <div class="box">
-      <div class="title">
-        2
-      </div>
-      <div class="result">
-        <div class="father person-box">父亲</div>
-        <div class="mother person-box">母亲</div>
-      </div>
-    </div>
-    <div class="box">
-      <div class="title">
-        <div class="num">3</div>
-      </div>
-      <div class="result">
-        <div class="brother person-box">
-          兄弟1
-        </div>
-        <div class="brother person-box">
-          兄弟2
-        </div>
-        <div class="brother person-box">
-          兄弟3
-        </div>
-        <div class="brother person-box">
-          兄弟4
-        </div>
-        <div class="sister person-box">
-          姐妹1
-        </div>
-        <div class="sister person-box">
-          姐妹2
-        </div>
-        <div class="sister person-box">
-          姐妹3
-        </div>
-        <div class="sister person-box">
-          姐妹4
-        </div>
-      </div>
-    </div>
+
+    <FamilyPerson v-for="(item,index) in dataList" :key="index" :list="item" :title="(index+1)+'代'"
+                  @FatherClick="searchByUUID"></FamilyPerson>
   </div>
 
 </template>
@@ -197,8 +160,14 @@ a {
     color: #fff;
     width: 4rem;
     text-align: center;
+    border: 0;
     border-top-left-radius: 0.5rem;
     border-bottom-left-radius: 0.5rem;
+
+    &:focus-visible {
+      outline: 0;
+      border: 0;
+    }
   }
 
   input {
@@ -244,59 +213,4 @@ a {
   }
 }
 
-.box {
-  display: flex;
-  margin-top: 1rem;
-  color: #fff;
-  border-radius: 0.5rem;
-  min-height: 2.5rem;
-
-  .title {
-    background-color: @family-color;
-    width: 3rem;
-    padding: 0.5rem;
-    //min-height: 2.5rem;
-    line-height: 2rem;
-    text-align: center;
-    //border-radius: 0.5rem 0 0 0.5rem;
-
-  }
-
-  .result {
-    flex: 1;
-    background-color: #fff;
-
-    padding: 0 0.5rem 0.5rem 0;
-
-
-    .person-box {
-      float: left;
-      min-width: 3rem;
-      height: 2.2rem;
-      line-height: 2.2rem;
-      //background-color: @family-color;
-      border-radius: 0.5rem;
-      padding: 0 0.5rem;
-      text-align: center;
-      margin: 0.5rem 0 0 0.5rem;
-      font-size: 14px;
-      color: #111;
-      border: 1px solid @family-color;
-
-    }
-  }
-}
-
-.all-result {
-  .box {
-    .title {
-      padding: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 2rem;
-
-    }
-  }
-}
 </style>
