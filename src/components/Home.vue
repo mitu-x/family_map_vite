@@ -85,11 +85,11 @@ const noAuthString = '无权限'
 }
 
 .unknown {
-  background-color: #68D966;
+  background-color: @unknown-color;
 }
 
 .undefined {
-  background-color: #6672D9;
+  background-color: @undefined-color;
 }
 
 @media screen and (min-width: 675px) {
