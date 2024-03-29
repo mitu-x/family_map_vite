@@ -22,6 +22,11 @@ const routes: Array<RouteRecordRaw> = [
         name: 'family',
         component: () => import("../components/Family.vue")
     },
+    {
+        path: '/insert',
+        name: 'insert',
+        component: () => import("../components/InsertMember.vue")
+    },
 
 ];
 // 1.返回一个 router 实列，为函数，里面有配置项（对象） history

@@ -24,7 +24,7 @@ const noAuthString = '无权限'
       </div>
     </router-link>
 
-    <router-link :to="unknownAuth ? '/' : '/'">
+    <router-link :to="unknownAuth ? '/insert' : '/'">
       <div class="box unknown">
         <img alt="" src="@/assets/images/疑问图.png" srcset="">
         <div>{{ unknownAuth ? '不知道' : noAuthString }}</div>
