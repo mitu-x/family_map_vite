@@ -10,30 +10,30 @@ const noAuthString = '无权限'
 
 <template>
   <div class="container">
-    <router-link :to="emotionAuth ? '/emotion' : '/'">
+    <router-link v-show="emotionAuth" :to="emotionAuth ? '/emotion' : '/'">
       <div class="box emotion">
-        <img alt="" src="@/assets/images/本子图.png" srcset="">
+        <img alt="" src="../../assets/images/本子图.png" srcset="">
         <div>{{ emotionAuth ? '人情簿' : noAuthString }}</div>
       </div>
     </router-link>
 
-    <router-link :to="familyAuth ? '/family' : '/'">
+    <router-link v-show="familyAuth" :to="familyAuth ? '/family' : '/'">
       <div class="box family">
-        <img alt="" src="@/assets/images/关系图.png" srcset="">
+        <img alt="" src="../../assets/images/关系图.png" srcset="">
         <div>{{ familyAuth ? '族家系' : noAuthString }}</div>
       </div>
     </router-link>
 
-    <router-link :to="unknownAuth ? '/insert' : '/'">
+    <router-link v-show="unknownAuth" :to="unknownAuth ? '/insert' : '/'">
       <div class="box unknown">
-        <img alt="" src="@/assets/images/疑问图.png" srcset="">
+        <img alt="" src="../../assets/images/疑问图.png" srcset="">
         <div>{{ unknownAuth ? '不知道' : noAuthString }}</div>
       </div>
     </router-link>
 
-    <router-link :to="undefinedAuth ? '/' : '/'">
+    <router-link v-show="undefinedAuth" :to="undefinedAuth ? '/' : '/'">
       <div class="box undefined">
-        <img alt="" src="@/assets/images/敬请期待.png" srcset="">
+        <img alt="" src="../../assets/images/敬请期待.png" srcset="">
         <div>{{ undefinedAuth ? '...' : noAuthString }}</div>
       </div>
     </router-link>

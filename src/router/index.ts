@@ -5,27 +5,27 @@ const routes: Array<RouteRecordRaw> = [
     {
         path: '/',
         name: 'home',
-        component: () => import("../components/Home.vue")
+        component: () => import("@/components/mobile/Home.vue")
     },
     {
         path: '/login',
         name: 'login',
-        component: () => import("../components/Login.vue")
+        component: () => import("@/components/mobile/Login.vue")
     },
     {
         path: '/emotion',
         name: 'emotion',
-        component: () => import("../components/Emotion.vue")
+        component: () => import("@/components/mobile/Emotion.vue")
     },
     {
         path: '/family',
         name: 'family',
-        component: () => import("../components/Family.vue")
+        component: () => import("@/components/mobile/Family.vue")
     },
     {
         path: '/insert',
         name: 'insert',
-        component: () => import("../components/InsertMember.vue")
+        component: () => import("@/components/mobile/InsertMember.vue")
     },
 
 ];

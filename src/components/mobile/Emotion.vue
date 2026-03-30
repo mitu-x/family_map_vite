@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import {ref} from "vue";
-import {getListByName} from '../api/emotion.ts'
+import {getListByName} from '@/api/emotion.ts'
 import {message} from 'ant-design-vue';
 
 type Res = [{
@@ -49,7 +49,7 @@ const search = () => {
     message.info("查询成功");
     total.value = res.result.total as number
     resList.value = res.result.data as Res
-    // 判断是否超过10条
+    // 判断是否超过3条
     if (total.value < 3) {
       hasResult.value = 1
     } else {
@@ -72,8 +72,8 @@ const search = () => {
         <option selected> 人名</option>
         <!--        <option>表名</option>-->
       </select>
-      <input v-model="inputString" placeholder="请输入姓名" type="text">
-      <img alt="搜索" src="../assets/images/search-emotion.png" @click="search">
+      <input v-model="inputString" placeholder="请输入姓名" type="text" @keyup.enter="search">
+      <img alt="搜索" src="@/assets/images/search-emotion.png" @click="search">
     </div>
 
     <div v-if="hasResult===1" key="res" class="result-box">

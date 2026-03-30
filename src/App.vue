@@ -1,15 +1,21 @@
 <script lang="ts" setup>
-import Footer from './components/Footer.vue'</script>
+import MobileLayout from '@/components/mobile/MobileLayout.vue'
+import PCLayout from '@/components/pc/PCLayout.vue'
+import {isMobileDevice} from "@/utils/deviceDetector.ts";
+import {onMounted, ref} from "vue";
+
+const isMobile = ref(true);
+onMounted(()=>{
+  isMobile.value = isMobileDevice();
+})
+</script>
 
 <template>
-  <div class="container">
-    <router-view></router-view>
-  </div>
-  <Footer></Footer>
+  <MobileLayout v-if="isMobile" />
+  <PCLayout v-else />
 </template>
 
-<style lang="less" scoped>
-.container {
-  min-height: 10rem;
-}
+<style lang="less">
+
 </style>
+

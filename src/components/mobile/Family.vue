@@ -93,7 +93,7 @@ const changeHandle = () => {
       <option value="2">全部</option>
     </select>
     <input v-model="inputString" placeholder="请输入姓名" type="text"/>
-    <img alt="搜索" src="../assets/images/search-family.png" @click="search"/>
+    <img alt="搜索" src="../../assets/images/search-family.png" @click="search"/>
   </div>
   <div v-if="!selectAll && searchResult " class="search-result">
     <div class="desc">
