@@ -1,16 +1,13 @@
 <script lang="ts" setup>
 
-
 </script>
 
 <template>
-  <div id="app">
-    <router-view></router-view>
-
-  </div>
+<div>
+  暂为yao
+</div>
 </template>
 
 <style lang="less" scoped>
-
 
 </style>

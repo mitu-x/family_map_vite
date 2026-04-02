@@ -8,7 +8,7 @@ let passwd = ref("")
 const router = useRouter()
 
 
-const loginTo = () => {
+const signIn = () => {
   if (passwd.value === 'cool1') {
     sessionStorage.setItem('token', 'cool')
     sessionStorage.setItem('authority', '1111')
@@ -25,8 +25,8 @@ const loginTo = () => {
 
 <template>
   <div class="box">
-    <input v-model="passwd" placeholder="请输入密码..." type="password" @keyup.enter="loginTo">
-    <a-button class="btn" type="primary" @click="loginTo" >登录</a-button>
+    <input v-model="passwd" placeholder="请输入密码..." type="password" @keyup.enter="signIn">
+    <a-button class="btn" type="primary" @click="signIn" >登录</a-button>
   </div>
 </template>
 
